@@ -30,5 +30,25 @@ public class Main {
             String temp=sum.toString(2);
             return temp;
         }
+        public String addBinary2(String a, String b) {
+            StringBuilder sb = new StringBuilder();
+            int i = a.length() - 1, j = b.length() -1, carry = 0;
+            while (i >= 0 || j >= 0) {
+                /**
+                 * 一共四种情况 0+0+0=0   sb+0 carry=0
+                 *             1+0+0=1   sb+1 carry=0
+                 *             1+1+0=2   sb+0 carry=1
+                 *             1+1+1=3   sb+1 carry=1
+                 */
+                int sum = carry;
+                if (j >= 0) sum += b.charAt(j--) - '0';
+                if (i >= 0) sum += a.charAt(i--) - '0';
+
+                sb.append(sum % 2);
+                carry = sum / 2;
+            }
+            if (carry != 0) sb.append(carry);
+            return sb.reverse().toString();
+        }
     }
 }
