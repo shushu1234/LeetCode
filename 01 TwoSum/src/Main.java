@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         int nums[]=new int[]{2,5,5,11};
         int target=10;
-        int result[]=new Solution().twoSum(nums,target);
+        int result[]=new Solution().twoSum2(nums,target);
         for (int rs :
                 result) {
             System.out.println(rs);
@@ -77,11 +77,11 @@ class Solution {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < numbers.length; i++) {
             if (map.containsKey(target - numbers[i])) {
-                result[1] = i + 1;
+                result[1] = i ;
                 result[0] = map.get(target - numbers[i]);
                 return result;
             }
-            map.put(numbers[i], i + 1);
+            map.put(numbers[i], i );
         }
         return result;
     }
