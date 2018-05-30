@@ -9,8 +9,8 @@ import java.util.HashMap;
 
  输入: s = "anagram", t = "nagaram"
  输出: true
- 示例 2:
 
+ 示例 2:
  输入: s = "rat", t = "car"
  输出: false
  说明:
