@@ -59,17 +59,29 @@ public class Main {
     }
 
     static class Solution {
-        public TreeNode invertTree(TreeNode root) {
+        public TreeNode invertTree1(TreeNode root) {
             if (root == null) {
                 return null;
             } else {
                 TreeNode temp = root.left;
                 root.left = root.right;
                 root.right = temp;
-                invertTree(root.left);
-                invertTree(root.right);
+                invertTree1(root.left);
+                invertTree1(root.right);
                 return root;
             }
+        }
+
+        public TreeNode invertTree(TreeNode root){
+            if (root==null){
+                return null;
+            }
+            invertTree(root.left);
+            invertTree(root.right);
+            TreeNode temp = root.left;
+            root.left = root.right;
+            root.right = temp;
+            return root;
         }
     }
 }
