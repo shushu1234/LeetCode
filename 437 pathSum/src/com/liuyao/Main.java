@@ -44,7 +44,9 @@ public class Main {
             if (root==null){
                 return 0;
             }
+//            包含这个节点，和为sum的个数
             int res=findPath(root,sum);
+//            不包含这个几点，和为sum的个数
             res+=pathSum(root.left,sum);
             res+=pathSum(root.right,sum);
             return res;
@@ -55,6 +57,7 @@ public class Main {
                 return 0;
             }
             int res=0;
+//            找到了一条
             if (node.val==sum){
                 res+=1;
             }
