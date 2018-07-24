@@ -1,5 +1,7 @@
 package com.liuyao;
 
+import java.util.Arrays;
+
 /**
  * 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
 
@@ -39,12 +41,43 @@ public class Main {
 
     public int rob2(int[] nums) {
         int n = nums.length;
-        if (n == 0) return 0;
-        if (n == 1) return nums[0];
-        if (n > 2)
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return nums[0];
+        }
+        if (n > 2) {
             nums[2] += nums[0];
-        for (int i = 3; i < n; i++)
-            nums[i] += Math.max(nums[i-2], nums[i-3]);
+        }
+        for (int i = 3; i < n; i++) {
+            nums[i] += Math.max(nums[i - 2], nums[i - 3]);
+        }
         return Math.max(nums[n-1], nums[n-2]);
+    }
+
+    class Solution {
+//        自顶向下，记忆化搜索
+        private int[] memo;
+        public int rob(int[] nums) {
+            memo=new int[nums.length+1];
+            Arrays.fill(memo,-1);
+            return tryRob(nums,0);
+        }
+
+        private int tryRob(int[] nums, int index) {
+            if (index >= nums.length){
+                return 0;
+            }
+            if (memo[index]!=-1){
+                return memo[index];
+            }
+            int res=0;
+            for (int i = index; i < nums.length; i++) {
+                res=Math.max(res,nums[i]+tryRob(nums,i+2));
+            }
+            memo[index]=res;
+            return res;
+        }
     }
 }
