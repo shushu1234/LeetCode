@@ -23,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[] arr={2,0,2,1,1,0};
-        Solution.sortColors(arr);
+        Solution.sortColors3(arr);
 	// write your code here
     }
     static class Solution {
@@ -69,6 +69,26 @@ public class Main {
             int temp=arr[i];
             arr[i]=arr[j];
             arr[j]=temp;
+        }
+
+//        三路快排
+        public static void sortColors3(int[] nums){
+            int lt=-1;
+            int gt=nums.length;
+            int i=lt+1;
+            while (i<gt){
+                if (nums[i]<1){
+                    swap(nums,i,lt+1);
+                    i++;
+                    lt++;
+                }else if (nums[i]>1){
+                    swap(nums,i,gt-1);
+                    gt--;
+                }else {
+                    i++;
+                }
+            }
+
         }
     }
 }
