@@ -26,14 +26,22 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        TreeNode treeNode0 = new TreeNode(1);
-        TreeNode treeNode1 = new TreeNode(2);
-        TreeNode treeNode2 = new TreeNode(3);
-
+        TreeNode treeNode0 = new TreeNode(8);
+        TreeNode treeNode1 = new TreeNode(8);
+        TreeNode treeNode2 = new TreeNode(7);
+        TreeNode treeNode3 = new TreeNode(9);
+        TreeNode treeNode4 = new TreeNode(2);
+        TreeNode treeNode5 = new TreeNode(4);
+        TreeNode treeNode6 = new TreeNode(5);
 
         treeNode0.left = treeNode1;
         treeNode0.right = treeNode2;
-//        System.out.println(Solution.preorderTraversal(treeNode0));
+        treeNode1.left = treeNode3;
+        treeNode1.right = treeNode4;
+        treeNode4.left = treeNode5;
+        treeNode4.right = treeNode6;
+        System.out.println(Solution.preorderTraversal(treeNode0));
+        System.out.println(Solution1.preorderTraversal(treeNode0));
     }
 
      public static class TreeNode {
@@ -43,7 +51,7 @@ public class Main {
           TreeNode(int x) { val = x; }
       }
     static class Solution {
-         class Command{
+         static class Command{
             String s;
             TreeNode node;
 
@@ -52,7 +60,7 @@ public class Main {
                 this.node = node;
             }
         }
-        public  List<Integer> preorderTraversal(TreeNode root) {
+        public static List<Integer> preorderTraversal(TreeNode root) {
             LinkedList<Integer> linkedList=new LinkedList<>();
             if (root==null){
                 return linkedList;
@@ -85,6 +93,29 @@ public class Main {
                 list.addLast(root.val);
                 list.addAll(preorderTraversal1(root.left)); //要用addAll()方法
                 list.addAll(preorderTraversal1(root.right));
+            }
+            return list;
+        }
+    }
+
+    static class Solution1{
+        public static List<Integer> preorderTraversal(TreeNode root) {
+            List<Integer> list=new LinkedList<>();
+            Stack<TreeNode> stack=new Stack<>();
+            if (root==null){
+                return list;
+            }
+            stack.push(root);
+            while (!stack.isEmpty()){
+                TreeNode node=stack.peek();
+                stack.pop();
+                if (node.right!=null){
+                    stack.push(node.right);
+                }
+                if (node.left!=null){
+                    stack.push(node.left);
+                }
+                list.add(node.val);
             }
             return list;
         }
