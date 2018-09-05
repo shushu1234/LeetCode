@@ -38,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        String[] arr = {"0","3","/"};
+        String[] arr = {"2","1","+","3","*"};
         System.out.println(Solution.evalRPN(arr));
     }
 
@@ -49,7 +49,8 @@ public class Main {
             }
             Stack<Integer> stack = new Stack<Integer>();
             for (int i = 0; i < tokens.length; i++) {
-                if (tokens[i].matches("^-?[1-9]\\d*|0$")) {
+//                if (tokens[i].matches("^-?[1-9]\\d*|0$")) {
+                if (judge(tokens[i])) {
                     stack.push(Integer.parseInt(tokens[i]));
                 } else {
                     int a = stack.pop();
@@ -73,6 +74,13 @@ public class Main {
                 }
             }
             return stack.pop();
+        }
+
+        private static boolean judge(String token) {
+            if (token.equals("+")  || token.equals("-") || token.equals("*") || token.equals("/")){
+                return false;
+            }
+            return true;
         }
     }
 }
