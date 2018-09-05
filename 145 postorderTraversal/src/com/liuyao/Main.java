@@ -24,8 +24,25 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
+        TreeNode treeNode0 = new TreeNode(8);
+        TreeNode treeNode1 = new TreeNode(8);
+        TreeNode treeNode2 = new TreeNode(7);
+        TreeNode treeNode3 = new TreeNode(9);
+        TreeNode treeNode4 = new TreeNode(2);
+        TreeNode treeNode5 = new TreeNode(4);
+        TreeNode treeNode6 = new TreeNode(5);
+
+        treeNode0.left = treeNode1;
+        treeNode0.right = treeNode2;
+        treeNode1.left = treeNode3;
+        treeNode1.right = treeNode4;
+        treeNode4.left = treeNode5;
+        treeNode4.right = treeNode6;
+
+//        System.out.println(Solution.postorderTraversal(treeNode0));
+        System.out.println(Solution1.postorderTraversal(treeNode0));
     }
-     public class TreeNode {
+     public static class TreeNode {
           int val;
           TreeNode left;
           TreeNode right;
@@ -41,7 +58,7 @@ public class Main {
                 this.node = node;
             }
         }
-        public List<Integer> postorderTraversal(TreeNode root) {
+        public  List<Integer> inorderTraversal(TreeNode root) {
             LinkedList<Integer> linkedList=new LinkedList<>();
             if (root==null){
                 return linkedList;
@@ -55,10 +72,10 @@ public class Main {
                     linkedList.add(command.node.val);
                 }else {
 //                    与递归的相反
-                    stack.push(new Command("print",command.node));
                     if (command.node.right!=null){
                         stack.push(new Command("go",command.node.right));
                     }
+                    stack.push(new Command("print",command.node));
                     if (command.node.left!=null){
                         stack.push(new Command("go",command.node.left));
                     }
@@ -68,5 +85,22 @@ public class Main {
             return linkedList;
         }
 
+    }
+
+    static  class Solution1 {
+        public static List<Integer> postorderTraversal(TreeNode root) {
+            List<Integer> list=new LinkedList<>();
+            Stack<TreeNode> stack=new Stack<>();
+            while (!stack.isEmpty()||root!=null){
+                while (root !=null){
+                    stack.push(root);
+                    root=root.left;
+                }
+                root=stack.pop();
+                list.add(root.val);
+                root=root.right;
+            }
+            return list;
+        }
     }
 }
