@@ -102,20 +102,16 @@ public class Main {
         public static List<Integer> preorderTraversal(TreeNode root) {
             List<Integer> list=new LinkedList<>();
             Stack<TreeNode> stack=new Stack<>();
-            if (root==null){
-                return list;
-            }
-            stack.push(root);
-            while (!stack.isEmpty()){
-                TreeNode node=stack.peek();
-                stack.pop();
-                if (node.right!=null){
-                    stack.push(node.right);
+            while (!stack.isEmpty() ||root!=null){
+                if (root !=null){
+                    list.add(root.val);
+                    stack.push(root);
+                    root=root.left;
                 }
-                if (node.left!=null){
-                    stack.push(node.left);
+                else {
+                    root=stack.pop();
+                    root=root.right;
                 }
-                list.add(node.val);
             }
             return list;
         }
