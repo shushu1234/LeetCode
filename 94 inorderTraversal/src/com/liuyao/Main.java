@@ -69,4 +69,20 @@ public class Main {
         }
 
     }
+    static  class Solution1 {
+        public static List<Integer> postorderTraversal(TreeNode root) {
+            List<Integer> list=new LinkedList<>();
+            Stack<TreeNode> stack=new Stack<>();
+            while (!stack.isEmpty()||root!=null){
+                while (root !=null){
+                    stack.push(root);
+                    root=root.left;
+                }
+                root=stack.pop();
+                list.add(root.val);
+                root=root.right;
+            }
+            return list;
+        }
+    }
 }
