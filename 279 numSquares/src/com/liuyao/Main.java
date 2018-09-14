@@ -1,5 +1,6 @@
 package com.liuyao;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -22,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        System.out.println(Solution.numSquares(13));
+        System.out.println(new Solution().numSquares2(13));
     }
 
     static class Solution {
@@ -59,6 +60,43 @@ public class Main {
                 }
             }
             return 0;
+        }
+
+        private  int memo[];
+        public  int numSquaresHelp(int n){
+            if (n==0){
+                return 0;
+            }
+            if (memo[n]!=-1){
+                return memo[n];
+            }
+            int res=Integer.MAX_VALUE;
+            for (int i = 1; i*i <= n; i++) {
+                res=Math.min(res,numSquaresHelp(n-i*i)+1);
+            }
+            memo[n]=res;
+            return res;
+        }
+
+        public  int numSquares2(int n){
+            memo=new int[n+1];
+            Arrays.fill(memo,-1);
+            return numSquaresHelp(n);
+        }
+
+        public static int numSquares3(int n){
+            if (n<=0){
+                return 0;
+            }
+            int[] memo=new int[n+1];
+            Arrays.fill(memo,Integer.MAX_VALUE);
+            memo[0]=0;
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j*j <=i ; j++) {
+                    memo[i]=Math.min(memo[i],memo[i-j*j]+1);
+                }
+            }
+            return memo[n];
         }
     }
 }
